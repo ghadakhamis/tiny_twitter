@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class FaildLoginAttemptsTable extends Migration
+class CreateTweetsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class FaildLoginAttemptsTable extends Migration
      */
     public function up()
     {
-        Schema::create('failed_login_attempts', function (Blueprint $table) {
+        Schema::create('tweets', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('email');
-            $table->timestamp('failed_login_time');
-            $table->string('IP');
+            $table->string('tweet_body');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -30,6 +30,6 @@ class FaildLoginAttemptsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('failed_login_attempts');
+        Schema::dropIfExists('tweets');
     }
 }

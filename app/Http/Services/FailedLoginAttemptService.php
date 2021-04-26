@@ -32,7 +32,7 @@ class FailedLoginAttemptService{
     public function checkIfEmailIsBlocked($email){
         $failedCount = $this->repository->getCountOfRecordsByEmail($email);
         $lastFailed = $this->repository->getLastFailedByEmail($email);
-        $lastFailedDate = Carbon::parse($lastFailed->failed_login_time);
+        $lastFailedDate = $lastFailed? Carbon::parse($lastFailed->failed_login_time) : Carbon::now();
         $currentDate = Carbon::now();
         if($failedCount >= config('failedLogin.attempts') &&
             $currentDate->diffInMinutes($lastFailedDate) <= config('failedLogin.blockedTimeInMinutes')){
