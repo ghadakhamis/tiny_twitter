@@ -2,6 +2,7 @@
 
 use Illuminate\Database\DatabaseManager;
 use App\Http\Repositories\UserRepository;
+use Tymon\JWTAuth\Facades\JWTAuth;
 use Hash;
 
 class UserService{
@@ -36,5 +37,14 @@ class UserService{
             return $user;
         }
         return null;
+    }
+
+    public function getCurrentUser(){
+        $user = null;
+        $userData = JWTAuth::parseToken()->authenticate();
+        if($userData){
+            $user = $this->repository->find($userData->id,array('*'));
+        }
+        return $user;
     }
 }
