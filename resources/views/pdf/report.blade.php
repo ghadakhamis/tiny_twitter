@@ -30,9 +30,11 @@
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->date_of_birth }}</td>
-                <td>{{ $user->tweets_count }}</td>
+                <td>{{ $user->tweets_count }} tweets</td>
             </tr>
             @endforeach
         </table>
+
+        <p>the average number of tweets per user equal: {{$averageTweetsPerUser}}</p>
    </body>
 </html>
