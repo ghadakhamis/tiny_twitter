@@ -47,4 +47,8 @@ class UserService{
         }
         return $user;
     }
+
+    public function getUsersWithTweetsCount(){
+        return $this->repository->getUsersWithTweetsCount();
+    }
 }

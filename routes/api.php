@@ -23,5 +23,7 @@ Route::group(['prefix' => 'v1'],
 Route::group(['prefix' => 'v1','middleware' => ['custom.auth']],
     function () {
         Route::post('tweets','TweetController@store');    
-        Route::post('following-users','UserFollowingController@store');        
+        Route::post('following-users','UserFollowingController@store');     
+        Route::get('actions/report','ActionController@downloadReport');        
+
 });
