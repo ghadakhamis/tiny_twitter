@@ -22,7 +22,8 @@ class ActionController extends Controller
     public function downloadReport()
     {
         $users = $this->userService->getUsersWithTweetsCount();
-        $pdf = PDF::loadView('pdf.report', ['users' => $users]);
+        $averageTweetsPerUser = ($users->sum('tweets_count')/ $users->count());
+        $pdf = PDF::loadView('pdf.report', ['users' => $users,'averageTweetsPerUser' => $averageTweetsPerUser]);
         return $pdf->download('report.pdf');
     }
 }
