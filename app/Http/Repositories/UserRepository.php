@@ -20,4 +20,10 @@ class UserRepository extends BaseRepository {
             ->where('email',$email)
             ->first();
     }
+
+    public function getUsersWithTweetsCount(){
+        return $this->model->select('*')
+            ->withCount('tweets')
+            ->get();
+    }
 }
