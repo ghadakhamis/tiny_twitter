@@ -5,14 +5,12 @@ use App\Http\Repositories\UserRepository;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Hash;
 
-class UserService{
+class UserService extends BaseService{
 
-    private $repository, $database;
-   
     public function __construct(DatabaseManager $database, UserRepository $repository )
     {
-        $this->database = $database;
-        $this->repository = $repository;
+        $this->setDatabase($database);
+        $this->setRepository($repository);
     }
 
     public function create(array $data){
