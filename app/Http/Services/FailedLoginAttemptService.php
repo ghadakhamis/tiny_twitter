@@ -2,16 +2,15 @@
 
 use Illuminate\Database\DatabaseManager;
 use App\Http\Repositories\FailedLoginAttemptRepository;
+use App\Http\Services\BaseService;
 use Carbon\Carbon;
 
-class FailedLoginAttemptService{
-
-    private $repository, $database;
+class FailedLoginAttemptService extends BaseService{
    
     public function __construct(DatabaseManager $database, FailedLoginAttemptRepository $repository )
     {
-        $this->database = $database;
-        $this->repository = $repository;
+        $this->setDatabase($database);
+        $this->setRepository($repository);
     }
 
     public function create(array $data){
