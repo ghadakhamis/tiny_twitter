@@ -1,0 +1,132 @@
+{
+	"info": {
+		"_postman_id": "fc62cd72-6e64-4243-9ef2-14230f86fdb2",
+		"name": "tiny_twitter",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Registeration",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"ghada\"  ,\n    \"email\": \"ghada@gmail.com\" ,\n    \"password\": \"123456\",\n    \"profile_image\": \"uploads/images/1619447844_profile.png\",\n    \"date_of_birth\": \"2021-01-20\"\n    \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/api/v1/authenticate/register"
+			},
+			"response": []
+		},
+		{
+			"name": "Upload image",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/ghada/Downloads/notes-green.png"
+						}
+					]
+				},
+				"url": "{{baseUrl}}/api/v1/upload-image"
+			},
+			"response": []
+		},
+		{
+			"name": "Authenticate user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"ghada@gmail.com\",\n    \"password\": \"123456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/api/v1/authenticate"
+			},
+			"response": []
+		},
+		{
+			"name": "Create tweet",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{JwtToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"tweet_body\": \"write new tweet\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/api/v1/tweets"
+			},
+			"response": []
+		},
+		{
+			"name": "Following user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{JwtToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"followed_id\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/api/v1/following-users"
+			},
+			"response": []
+		},
+		{
+			"name": "Download action report",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{JwtToken}}",
+						"type": "text"
+					},
+					{
+						"key": "re",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"url": "{{baseUrl}}/api/v1/actions/report"
+			},
+			"response": []
+		}
+	]
+}
