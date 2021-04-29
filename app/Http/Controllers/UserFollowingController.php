@@ -26,17 +26,22 @@ class UserFollowingController extends Controller
     {
         $data = $request->all();
         $user = $this->userService->getCurrentUser();
-        if($user && $user->id != $data['followed_id']){
-            $data['follower_id'] = $user->id;
-            $validator = Validator::make($data, UserFollowing::rules('store'));
-            if($validator->fails()) {
-                return $this->customResponse->response(null,[],$validator->errors()->all(),400);
-            }
-    
+
+        $data['follower_id'] = $user->id;
+        $validator = Validator::make($data, UserFollowing::rules('store'));
+        if($validator->fails()) {
+            return $this->customResponse->response(null,[],$validator->errors()->all(),400);
+        }
+        if($user && $user->id == $data['followed_id']){
+            return $this->customResponse->response(null,[],['You can\'t following yourself'],400);
+        }
+        // check  if current user following this user
+        $isFollowing = $this->userFollowingService->checkIfCurrentUserFollowingSelectedUser($user->id,$data['followed_id']);
+        if(!$isFollowing){
             $record = $this->userFollowingService->create($data);
             return $this->customResponse->response(null,['Your following saved successfully'],[],200);
         } else {
-            return $this->customResponse->response(null,[],['You can\'t following yourself'],400);
+            return $this->customResponse->response(null,[],['You are following this user already'],400);
         }
     }
 }
