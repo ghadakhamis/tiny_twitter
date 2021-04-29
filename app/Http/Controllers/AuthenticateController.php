@@ -46,16 +46,15 @@ class AuthenticateController extends Controller
         if($validator->fails()) {
             return $this->customResponse->response(null,[],$validator->errors()->all(),400);
         }
+        // check if email blocked or not
+        $isBlocked = $this->failedLoginAttemptService->checkIfEmailIsBlocked($request->email);
+        if($isBlocked){
+            return $this->customResponse->response(null,[],['You are blocked for ' . config('failedLogin.blockedTimeInMinutes') . ' minutes'],400);
+        }
         $user = $this->userService->loginUser($request->email,$request->password);
         if($user){
-            // check if email blocked or not
-            $isBlocked = $this->failedLoginAttemptService->checkIfEmailIsBlocked($request->email);
-            if(!$isBlocked){
-                $token = JWTAuth::fromUser($user);
-                return $this->customResponse->response(["token" => $token],['Your data is corrected'],[],200);
-            } else {
-                return $this->customResponse->response(null,[],['You are blocked for ' . config('failedLogin.blockedTimeInMinutes') . ' minutes'],400);
-            }
+            $token = JWTAuth::fromUser($user);
+            return $this->customResponse->response(["token" => $token],['Your data is corrected'],[],200);
         } else {
             // add faild login attempts
             $this->failedLoginAttemptService->create(['email' => $request->email,'failed_login_time' => Carbon::now(),'IP' => $request->ip()]);

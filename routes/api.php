@@ -20,7 +20,7 @@ Route::group(['prefix' => 'v1'],
         Route::post('authenticate','AuthenticateController@login');      
 });
 
-Route::group(['prefix' => 'v1','middleware' => ['custom.auth']],
+Route::group(['prefix' => 'v1','middleware' => ['custom.auth','email.blocked']],
     function () {
         Route::post('tweets','TweetController@store');    
         Route::post('following-users','UserFollowingController@store');     
