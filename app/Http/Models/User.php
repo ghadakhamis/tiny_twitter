@@ -45,14 +45,14 @@ class User extends Authenticatable implements JWTSubject
             case 'register':
                 return array(
                     'name'=> 'required|max:200',
-                    'email'=> 'required|email|unique:users',
+                    'email'=> 'required|email:rfc,dns|unique:users',
                     'password' => 'required|min:6',    
                     'profile_image'=> 'required',
                     'date_of_birth'=> 'required|date|before:today',
                 );
             case 'login':
                 return array(
-                    'email'=> 'required|email',
+                    'email'=> 'required|email:rfc,dns',
                     'password' => 'required|min:6',    
                 );
         }
