@@ -29,4 +29,9 @@ class UserFollowingService{
         return $model;
     }
 
+    public function checkIfCurrentUserFollowingSelectedUser($currentUserId,$followedId){
+        $record = $this->repository->checkIfCurrentUserFollowingSelectedUser($currentUserId,$followedId);
+        return $record? true : false;
+    }
+
 }

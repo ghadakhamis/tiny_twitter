@@ -14,4 +14,9 @@ class UserFollowingRepository extends BaseRepository {
     {
         return UserFollowing::class;
     }
+
+    public function checkIfCurrentUserFollowingSelectedUser($currentUserId,$followedId){
+        return $this->model->whereRaw('follower_id = ? AND followed_id = ?',array($currentUserId,$followedId))
+            ->first();
+    }
 }
