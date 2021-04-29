@@ -4,14 +4,12 @@ use Illuminate\Database\DatabaseManager;
 use App\Http\Repositories\TweetRepository;
 use Carbon\Carbon;
 
-class TweetService{
+class TweetService extends BaseService{
 
-    private $repository, $database;
-   
     public function __construct(DatabaseManager $database, TweetRepository $repository )
     {
-        $this->database = $database;
-        $this->repository = $repository;
+        $this->setDatabase($database);
+        $this->setRepository($repository);
     }
 
     public function create(array $data){

@@ -4,14 +4,12 @@ use Illuminate\Database\DatabaseManager;
 use App\Http\Repositories\UserFollowingRepository;
 use Carbon\Carbon;
 
-class UserFollowingService{
+class UserFollowingService extends BaseService{
 
-    private $repository, $database;
-   
     public function __construct(DatabaseManager $database, UserFollowingRepository $repository )
     {
-        $this->database = $database;
-        $this->repository = $repository;
+        $this->setDatabase($database);
+        $this->setRepository($repository);
     }
 
     public function create(array $data){

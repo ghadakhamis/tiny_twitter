@@ -10,11 +10,11 @@ class BaseService{
     {
     }
 
-    protected function setDatabase(){
+    protected function setDatabase($database){
         $this->database = $database;
     }
 
-    protected function setRepository(){
+    protected function setRepository($repository){
         $this->repository = $repository;
     }
 }
