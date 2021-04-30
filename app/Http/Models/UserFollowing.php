@@ -19,8 +19,8 @@ class UserFollowing extends Model
         switch ($action) {
             case 'store':
                 return array(
-                    'followed_id'=> 'required',
-                    'follower_id' => 'required'
+                    'followed_id'=> 'required|exists:App\Http\Models\User,id',
+                    'follower_id' => 'required|exists:App\Http\Models\User,id'
                 );
         }
     }
