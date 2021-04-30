@@ -2,7 +2,7 @@
 
 use Illuminate\Database\DatabaseManager;
 
-class BaseService{
+abstract class BaseService{
 
     protected $repository, $database;
    
