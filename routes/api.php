@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::group(['prefix' => 'v1'],
     function () {
-        Route::post('upload-image','UploadController@uploadImage');
+        Route::post('upload-image','UploadController@uploadImage')->name('upload.image');
         Route::post('authenticate/register', 'AuthenticateController@registration');  
         Route::post('authenticate','AuthenticateController@login');      
 });
